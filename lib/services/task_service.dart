@@ -1,9 +1,12 @@
 import 'package:task_manager_app/models/project.dart';
 import 'package:task_manager_app/models/task.dart';
+import 'package:task_manager_app/services/project_service.dart';
 
 class TaskService {
-  Future<List<Task>> getTasks(List<Project> projects) async {
-    await Future.delayed(const Duration(seconds: 2));
+  Future<List<Task>> getTasks() async {
+    ProjectService projectService = ProjectService();
+    List<Project> projects = await projectService.getProjects();
+    await Future.delayed(const Duration(seconds: 1));
 
     return [
       Task(

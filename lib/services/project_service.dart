@@ -3,7 +3,7 @@ import 'package:task_manager_app/models/project.dart';
 
 class ProjectService {
   Future<List<Project>> getProjects() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     return [
       Project(id: '1', name: 'Project 1', color: Colors.blue),
       Project(id: '2', name: 'Project 2', color: Colors.red),
