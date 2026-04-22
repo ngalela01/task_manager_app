@@ -77,4 +77,45 @@ class TaskService {
       ),
     ];
   }
+
+  List<Task> filterByStatus(List<Task> tasks, TaskStatus status) {
+    return tasks.where((task) => task.status == status).toList();
+  }
+
+  List<Task> sortByPriority(List<Task> tasks) {
+    final sortedTasks = List<Task>.from(tasks);
+    sortedTasks.sort((a, b) => b.priority.index.compareTo(a.priority.index));
+    return sortedTasks;
+  }
+
+  List<Task> taskGroupByProject(List<Task> tasks, Project projet) {
+    return tasks.where((task)=> task.project?.id == projet.id).toList();
+  }
+
+  List<Task> tasksForDay(List<Task> tasks, DateTime day) {
+    return tasks
+        .where(
+          (task) =>
+              task.dueDate != null &&
+              task.dueDate!.day == day.day &&
+              task.dueDate!.month == day.month &&
+              task.dueDate!.year == day.year,
+        )
+        .toList();
+  }
+
+
+  List<Task> tasksForWeek(List<Task> tasks) {
+  final today = DateTime.now();
+  final endOfWeek = today.add(const Duration(days: 7));
+
+  return tasks.where((task) {
+    if (task.dueDate == null) {
+      return false;
+    }
+
+    return task.dueDate!.isAfter(today) && task.dueDate!.isBefore(endOfWeek);
+  }).toList();
+}
+
 }
