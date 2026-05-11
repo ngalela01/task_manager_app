@@ -8,9 +8,9 @@ class ProjectRepositoryMemory implements ProjectRepository {
     await Future.delayed(const Duration(milliseconds: 300));
 
     return [
-      Project(id: '1', name: 'Projet Flutter', color: Colors.blue),
-      Project(id: '2', name: 'Cours', color: Colors.red),
-      Project(id: '3', name: 'Personnel', color: Colors.green),
+      Project(id: '1', name: 'Travail', color: Colors.blue),
+      Project(id: '2', name: 'Personnel', color: Colors.green),
+      Project(id: '3', name: 'Courses', color: Colors.deepOrange),
     ];
   }
 }

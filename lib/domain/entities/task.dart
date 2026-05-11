@@ -1,35 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:task_manager_app/domain/entities/priority.dart';
 import 'package:task_manager_app/domain/entities/project.dart';
+import 'package:task_manager_app/domain/entities/task_status.dart';
 
-enum TaskPriority { basse, moyenne, haute, urgente }
 
-enum TaskStatus {
-  afaire,
-  enCours,
-  terminee;
-
-  String get label {
-    switch (this) {
-      case TaskStatus.afaire:
-        return 'A faire';
-      case TaskStatus.enCours:
-        return 'En cours';
-      case TaskStatus.terminee:
-        return 'Terminee';
-    }
-  }
-
-  Color get textColor {
-    switch (this) {
-      case TaskStatus.afaire:
-        return Colors.orange;
-      case TaskStatus.enCours:
-        return Colors.blue;
-      case TaskStatus.terminee:
-        return Colors.green;
-    }
-  }
-}
 
 class Task {
   final String id;

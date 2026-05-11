@@ -1,5 +1,7 @@
+import 'package:task_manager_app/domain/entities/priority.dart';
 import 'package:task_manager_app/domain/entities/project.dart';
 import 'package:task_manager_app/domain/entities/task.dart';
+import 'package:task_manager_app/domain/entities/task_status.dart';
 import 'package:task_manager_app/domain/repositories/task_repository.dart';
 import 'package:task_manager_app/infrastructure/project_repository_memory.dart';
 
@@ -17,30 +19,64 @@ class TaskRepositoryMemory implements TaskRepository {
     return [
       Task(
         id: '1',
-        title: 'Creer la structure du projet',
-        description: 'Organiser les dossiers selon l architecture hexagonale',
+        title: 'Preparer la presentation',
+        description: 'Preparer les slides et la demo',
         priority: TaskPriority.haute,
-        status: TaskStatus.terminee,
-        dueDate: DateTime.now(),
+        status: TaskStatus.enCours,
+        dueDate: DateTime(2026, 4, 20),
         project: projects[0],
       ),
       Task(
         id: '2',
-        title: 'Creer les repositories',
-        description: 'Definir les contrats dans le domaine',
-        priority: TaskPriority.moyenne,
-        status: TaskStatus.enCours,
-        dueDate: DateTime.now().add(const Duration(days: 1)),
-        project: projects[0],
+        title: 'Faire les courses',
+        description: 'Lait, pain, oeufs, fruits',
+        priority: TaskPriority.basse,
+        status: TaskStatus.afaire,
+        dueDate: DateTime(2026, 4, 20),
+        project: projects[2],
       ),
       Task(
         id: '3',
-        title: 'Preparer le formulaire',
-        description: 'Ajouter une page pour creer une tache',
-        priority: TaskPriority.basse,
+        title: 'Corriger le bug #42',
+        description: 'Corriger le bug de connexion signale par le client',
+        priority: TaskPriority.urgente,
         status: TaskStatus.afaire,
-        dueDate: DateTime.now().add(const Duration(days: 3)),
+        dueDate: DateTime(2026, 4, 21),
+        project: projects[0],
+      ),
+      Task(
+        id: '4',
+        title: 'Appeler le dentiste',
+        description: '',
+        priority: TaskPriority.moyenne,
+        status: TaskStatus.afaire,
+        dueDate: DateTime(2026, 4, 18),
         project: projects[1],
+      ),
+      Task(
+        id: '5',
+        title: 'Ranger les photos',
+        description: 'Trier et sauvegarder',
+        priority: TaskPriority.basse,
+        status: TaskStatus.terminee,
+        project: projects[1],
+      ),
+      Task(
+        id: '6',
+        title: 'Lire le TP2',
+        description: 'Comprendre sidebar, formulaires et widgets',
+        priority: TaskPriority.moyenne,
+        status: TaskStatus.enCours,
+        dueDate: DateTime(2026, 4, 19),
+        project: projects[0],
+      ),
+      Task(
+        id: '7',
+        title: 'Creer ProjectRepository',
+        description: 'Ajouter le contrat dans domain/repositories',
+        priority: TaskPriority.haute,
+        status: TaskStatus.terminee,
+        project: projects[0],
       ),
     ];
   }
