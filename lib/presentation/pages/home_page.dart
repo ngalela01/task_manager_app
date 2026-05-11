@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_app/models/task.dart';
-import 'package:task_manager_app/services/task_service.dart';
+import 'package:task_manager_app/domain/entities/task.dart';
+import 'package:task_manager_app/infrastructure/task_repository_memory.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,9 +10,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final TaskService taskService = TaskService();
+  final TaskRepositoryMemory taskRepository = TaskRepositoryMemory();
+
   Future<List<Task>> loadTasks() async {
-    return await taskService.getTasks();
+    return await taskRepository.getTasks();
   }
 
   @override
@@ -44,12 +45,14 @@ class _HomePageState extends State<HomePage> {
               itemCount: tasks.length,
               itemBuilder: (context, index) {
                 Task task = tasks[index];
-                return ListTile(
-                  title: Text(task.title),
-                  subtitle: Text(task.description ?? ''),
-                  trailing: Text(
-                    task.status.label,
-                    style: TextStyle(color: task.status.textColor),
+                return Card(
+                  child: ListTile(
+                    title: Text(task.title),
+                    subtitle: Text(task.description ?? ''),
+                    trailing: Text(
+                      task.status.label,
+                      style: TextStyle(color: task.status.textColor),
+                    ),
                   ),
                 );
               },

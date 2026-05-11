@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_app/models/project.dart';
+import 'package:task_manager_app/domain/entities/project.dart';
 
 enum TaskPriority { basse, moyenne, haute, urgente }
 
@@ -15,7 +15,7 @@ enum TaskStatus {
       case TaskStatus.enCours:
         return 'En cours';
       case TaskStatus.terminee:
-        return 'Terminée';
+        return 'Terminee';
     }
   }
 

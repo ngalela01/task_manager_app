@@ -1,5 +1,5 @@
-import 'package:task_manager_app/models/project.dart';
-import 'package:task_manager_app/models/task.dart';
+import 'package:task_manager_app/domain/entities/project.dart';
+import 'package:task_manager_app/domain/entities/task.dart';
 import 'package:task_manager_app/services/project_service.dart';
 
 class TaskService {

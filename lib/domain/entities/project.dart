@@ -4,8 +4,14 @@ class Project {
   final String id;
   final String name;
   final Color color;
+  final DateTime createdAt;
 
-  Project({required this.id, required this.name, required this.color});
+  Project({
+    required this.id,
+    required this.name,
+    required this.color,
+    createdAt,
+  }) : createdAt = createdAt ?? DateTime.now();
 
   Project copyWith({String? id, String? name, Color? color}) {
     return Project(

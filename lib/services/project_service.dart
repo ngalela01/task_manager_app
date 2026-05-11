@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager_app/models/project.dart';
+import 'package:task_manager_app/domain/entities/project.dart';
 
 class ProjectService {
   Future<List<Project>> getProjects() async {
