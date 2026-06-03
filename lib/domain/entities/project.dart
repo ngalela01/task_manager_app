@@ -1,28 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Project {
-  final String id;
-  final String name;
-  final Color color;
-  final DateTime createdAt;
+part 'project.freezed.dart';
+part 'project.g.dart';
 
-  Project({
-    required this.id,
-    required this.name,
-    required this.color,
-    createdAt,
-  }) : createdAt = createdAt ?? DateTime.now();
+@freezed
+abstract class Project with _$Project {
+  const factory Project({
+    required String id,
+    required String name,
+    required int colorValue,
+    required DateTime createdAt,
+  }) = _Project;
 
-  Project copyWith({String? id, String? name, Color? color}) {
-    return Project(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      color: color ?? this.color,
-    );
-  }
-
-  @override
-  String toString() {
-    return 'Project(id: $id, name: $name, color: $color)';
-  }
+  factory Project.fromJson(Map<String, dynamic> json) =>
+      _$ProjectFromJson(json);
 }

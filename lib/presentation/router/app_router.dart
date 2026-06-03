@@ -5,16 +5,15 @@ import 'package:task_manager_app/presentation/router/app_router.gr.dart';
 class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(
-          path: '/',
-          page: MainLayoutRoute.page,
-          children: [
-            AutoRoute(path: 'dashboard', page: DashboardRoute.page, initial: true),
-            AutoRoute(path: 'tasks', page: TaskListRoute.page),
-            AutoRoute(path: 'tasks/:id', page: TaskDetailRoute.page),
-            AutoRoute(path: 'settings', page: SettingsRoute.page),
-            AutoRoute(path: 'about', page: AboutRoute.page),
-          ],
-        ),
-      ];
+    AutoRoute(
+      path: '/',
+      page: MainLayoutRoute.page,
+      children: [
+        AutoRoute(path: 'projects', page: TaskListRoute.page, initial: true),
+        AutoRoute(path: 'today', page: DashboardRoute.page),
+        AutoRoute(path: 'week', page: AboutRoute.page),
+        AutoRoute(path: 'settings', page: SettingsRoute.page),
+      ],
+    ),
+  ];
 }
