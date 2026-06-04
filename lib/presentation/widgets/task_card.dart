@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:task_manager_app/application/providers/repository_providers.dart';
 import 'package:task_manager_app/application/providers/task_notifier.dart';
 import 'package:task_manager_app/domain/entities/task.dart';
 
@@ -10,6 +11,17 @@ class TaskCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final projectsAsync = ref.watch(projectsProvider);
+    Color? projectColor;
+
+    projectsAsync.whenData((projects) {
+      for (final project in projects) {
+        if (project.id == task.projectId) {
+          projectColor = Color(project.colorValue);
+        }
+      }
+    });
+
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
@@ -21,7 +33,22 @@ class TaskCard extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(task.title),
+                  Row(
+                    children: [
+                      if (projectColor != null) ...[
+                        Container(
+                          width: 10,
+                          height: 10,
+                          decoration: BoxDecoration(
+                            color: projectColor,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                      Expanded(child: Text(task.title)),
+                    ],
+                  ),
                   if ((task.description ?? '').isNotEmpty) ...[
                     const SizedBox(height: 8),
                     Text(task.description!),
