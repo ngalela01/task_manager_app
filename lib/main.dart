@@ -2,9 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager_app/application/providers/theme_provider.dart';
 import 'package:task_manager_app/presentation/router/app_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task_manager_app/application/providers/shared_preferences_provider.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
-  runApp(const ProviderScope(child: MyApp()));
+  final sharedPreferences = await SharedPreferences.getInstance();
+
+  runApp(
+    ProviderScope(
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 final appRouter = AppRouter();
 
