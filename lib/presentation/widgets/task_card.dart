@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:task_manager_app/application/providers/repository_providers.dart';
+import 'package:task_manager_app/application/providers/project_notifier.dart';
 import 'package:task_manager_app/application/providers/task_notifier.dart';
 import 'package:task_manager_app/domain/entities/task.dart';
 
@@ -11,7 +11,7 @@ class TaskCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final projectsAsync = ref.watch(projectsProvider);
+    final projectsAsync = ref.watch(projectNotifierProvider);
     Color? projectColor;
 
     projectsAsync.whenData((projects) {
