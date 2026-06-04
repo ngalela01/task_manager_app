@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:task_manager_app/application/providers/task_notifier.dart';
 import 'package:task_manager_app/domain/entities/task.dart';
 
-class TaskCard extends StatelessWidget {
+class TaskCard extends ConsumerWidget {
   final Task task;
 
   const TaskCard({super.key, required this.task});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       child: Padding(
@@ -37,7 +39,7 @@ class TaskCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () => _confirmDelete(context, ref),
                   icon: const Icon(Icons.delete_outline),
                 ),
               ],
@@ -46,5 +48,33 @@ class TaskCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _confirmDelete(BuildContext context, WidgetRef ref) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Supprimer la tache'),
+          content: Text('Veux-tu supprimer "${task.title}" ?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Annuler'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Supprimer'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirmed != true) {
+      return;
+    }
+
+    await ref.read(taskNotifierProvider.notifier).deleteTask(task.id);
   }
 }
