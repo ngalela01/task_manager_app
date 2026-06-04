@@ -9,108 +9,90 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i7;
-import 'package:task_manager_app/presentation/pages/about_page.dart' as _i1;
-import 'package:task_manager_app/presentation/pages/dashboard_page.dart' as _i2;
+import 'package:auto_route/auto_route.dart' as _i6;
 import 'package:task_manager_app/presentation/pages/main_layout_page.dart'
-    as _i3;
-import 'package:task_manager_app/presentation/pages/settings_page.dart' as _i4;
-import 'package:task_manager_app/presentation/pages/task_detail_page.dart'
-    as _i5;
-import 'package:task_manager_app/presentation/pages/task_list_page.dart' as _i6;
+    as _i1;
+import 'package:task_manager_app/presentation/pages/project_page.dart' as _i2;
+import 'package:task_manager_app/presentation/pages/settings_page.dart' as _i3;
+import 'package:task_manager_app/presentation/pages/today_page.dart' as _i4;
+import 'package:task_manager_app/presentation/pages/week_page.dart' as _i5;
 
 /// generated route for
-/// [_i1.AboutPage]
-class AboutRoute extends _i7.PageRouteInfo<void> {
-  const AboutRoute({List<_i7.PageRouteInfo>? children})
-    : super(AboutRoute.name, initialChildren: children);
-
-  static const String name = 'AboutRoute';
-
-  static _i7.PageInfo page = _i7.PageInfo(
-    name,
-    builder: (data) {
-      return const _i1.AboutPage();
-    },
-  );
-}
-
-/// generated route for
-/// [_i2.DashboardPage]
-class DashboardRoute extends _i7.PageRouteInfo<void> {
-  const DashboardRoute({List<_i7.PageRouteInfo>? children})
-    : super(DashboardRoute.name, initialChildren: children);
-
-  static const String name = 'DashboardRoute';
-
-  static _i7.PageInfo page = _i7.PageInfo(
-    name,
-    builder: (data) {
-      return const _i2.DashboardPage();
-    },
-  );
-}
-
-/// generated route for
-/// [_i3.MainLayoutPage]
-class MainLayoutRoute extends _i7.PageRouteInfo<void> {
-  const MainLayoutRoute({List<_i7.PageRouteInfo>? children})
+/// [_i1.MainLayoutPage]
+class MainLayoutRoute extends _i6.PageRouteInfo<void> {
+  const MainLayoutRoute({List<_i6.PageRouteInfo>? children})
     : super(MainLayoutRoute.name, initialChildren: children);
 
   static const String name = 'MainLayoutRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i6.PageInfo page = _i6.PageInfo(
     name,
     builder: (data) {
-      return const _i3.MainLayoutPage();
+      return const _i1.MainLayoutPage();
     },
   );
 }
 
 /// generated route for
-/// [_i4.SettingsPage]
-class SettingsRoute extends _i7.PageRouteInfo<void> {
-  const SettingsRoute({List<_i7.PageRouteInfo>? children})
+/// [_i2.ProjectPage]
+class ProjectRoute extends _i6.PageRouteInfo<void> {
+  const ProjectRoute({List<_i6.PageRouteInfo>? children})
+    : super(ProjectRoute.name, initialChildren: children);
+
+  static const String name = 'ProjectRoute';
+
+  static _i6.PageInfo page = _i6.PageInfo(
+    name,
+    builder: (data) {
+      return const _i2.ProjectPage();
+    },
+  );
+}
+
+/// generated route for
+/// [_i3.SettingsPage]
+class SettingsRoute extends _i6.PageRouteInfo<void> {
+  const SettingsRoute({List<_i6.PageRouteInfo>? children})
     : super(SettingsRoute.name, initialChildren: children);
 
   static const String name = 'SettingsRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i6.PageInfo page = _i6.PageInfo(
     name,
     builder: (data) {
-      return const _i4.SettingsPage();
+      return const _i3.SettingsPage();
     },
   );
 }
 
 /// generated route for
-/// [_i5.TaskDetailPage]
-class TaskDetailRoute extends _i7.PageRouteInfo<void> {
-  const TaskDetailRoute({List<_i7.PageRouteInfo>? children})
-    : super(TaskDetailRoute.name, initialChildren: children);
+/// [_i4.TodayPage]
+class TodayRoute extends _i6.PageRouteInfo<void> {
+  const TodayRoute({List<_i6.PageRouteInfo>? children})
+    : super(TodayRoute.name, initialChildren: children);
 
-  static const String name = 'TaskDetailRoute';
+  static const String name = 'TodayRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i6.PageInfo page = _i6.PageInfo(
     name,
     builder: (data) {
-      return const _i5.TaskDetailPage();
+      return const _i4.TodayPage();
     },
   );
 }
 
 /// generated route for
-/// [_i6.TaskListPage]
-class TaskListRoute extends _i7.PageRouteInfo<void> {
-  const TaskListRoute({List<_i7.PageRouteInfo>? children})
-    : super(TaskListRoute.name, initialChildren: children);
+/// [_i5.WeekPage]
+class WeekRoute extends _i6.PageRouteInfo<void> {
+  const WeekRoute({List<_i6.PageRouteInfo>? children})
+    : super(WeekRoute.name, initialChildren: children);
 
-  static const String name = 'TaskListRoute';
+  static const String name = 'WeekRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i6.PageInfo page = _i6.PageInfo(
     name,
     builder: (data) {
-      return const _i6.TaskListPage();
+      return const _i5.WeekPage();
     },
   );
 }

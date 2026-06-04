@@ -11,9 +11,9 @@ class MainLayoutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoTabsRouter(
       routes: const [
-        TaskListRoute(),
-        DashboardRoute(),
-        AboutRoute(),
+        ProjectRoute(),
+        TodayRoute(),
+        WeekRoute(),
         SettingsRoute(),
       ],
       builder: (context, child) {
@@ -50,7 +50,7 @@ class MainLayoutPage extends StatelessWidget {
               const ProjectSidebar(),
 
               const VerticalDivider(width: 1),
-              
+
               Expanded(child: child),
             ],
           ),
