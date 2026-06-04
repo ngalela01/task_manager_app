@@ -10,6 +10,7 @@ class ProjectRepositorySharedPreferences implements ProjectRepository {
   ProjectRepositorySharedPreferences(this.prefs);
 
   static const String _projectsKey = 'projects';
+  static const String _projectsSeededKey = 'projectsSeeded';
 
   List<Project> _defaultProjects() {
     return [
@@ -36,11 +37,21 @@ class ProjectRepositorySharedPreferences implements ProjectRepository {
 
   Future<List<Project>> _loadProjects() async {
     final jsonString = prefs.getString(_projectsKey);
+    final projectsSeeded = prefs.getBool(_projectsSeededKey) ?? false;
 
-    if (jsonString == null) {
+    if (jsonString == null && !projectsSeeded) {
       final projects = _defaultProjects();
       await _saveProjects(projects);
+      await prefs.setBool(_projectsSeededKey, true);
       return projects;
+    }
+
+    if (!projectsSeeded) {
+      await prefs.setBool(_projectsSeededKey, true);
+    }
+
+    if (jsonString == null) {
+      return [];
     }
 
     final jsonList = jsonDecode(jsonString) as List;

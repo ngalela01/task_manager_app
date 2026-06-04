@@ -12,6 +12,7 @@ class TaskRepositorySharedPreferences implements TaskRepository {
   TaskRepositorySharedPreferences(this.prefs);
 
   static const String _tasksKey = 'tasks';
+  static const String _tasksSeededKey = 'tasksSeeded';
 
   List<Task> _defaultTasks() {
     return [
@@ -40,11 +41,21 @@ class TaskRepositorySharedPreferences implements TaskRepository {
 
   Future<List<Task>> _loadTasks() async {
     final jsonString = prefs.getString(_tasksKey);
+    final tasksSeeded = prefs.getBool(_tasksSeededKey) ?? false;
 
-    if (jsonString == null) {
+    if (jsonString == null && !tasksSeeded) {
       final tasks = _defaultTasks();
       await _saveTasks(tasks);
+      await prefs.setBool(_tasksSeededKey, true);
       return tasks;
+    }
+
+    if (!tasksSeeded) {
+      await prefs.setBool(_tasksSeededKey, true);
+    }
+
+    if (jsonString == null) {
+      return [];
     }
 
     final jsonList = jsonDecode(jsonString) as List;

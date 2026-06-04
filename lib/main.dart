@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:task_manager_app/application/providers/accent_color_provider.dart';
 import 'package:task_manager_app/application/providers/theme_provider.dart';
 import 'package:task_manager_app/presentation/router/app_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,13 +44,15 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeProvider);
+    final accentColor = ref.watch(accentColorProvider);
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       themeMode: themeMode,
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: accentColor),
       darkTheme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: Colors.blue,
+        colorSchemeSeed: accentColor,
         brightness: Brightness.dark,
       ),
       routerConfig: appRouter.config(),
