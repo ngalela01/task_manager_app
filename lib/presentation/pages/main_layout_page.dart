@@ -8,6 +8,7 @@ import 'package:task_manager_app/application/providers/theme_provider.dart';
 import 'package:task_manager_app/presentation/router/app_router.gr.dart';
 import 'package:task_manager_app/presentation/widgets/project_sidebar.dart';
 import 'package:task_manager_app/presentation/widgets/task_form_dialog.dart';
+import 'package:window_manager/window_manager.dart';
 
 class NewTaskIntent extends Intent {
   const NewTaskIntent();
@@ -36,6 +37,8 @@ class MainLayoutPage extends ConsumerWidget {
       ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
+
+        _updateWindowTitle(tabsRouter.activeIndex);
 
         return Shortcuts(
           shortcuts: const {
@@ -82,7 +85,10 @@ class MainLayoutPage extends ConsumerWidget {
                   children: [
                     NavigationRail(
                       selectedIndex: tabsRouter.activeIndex,
-                      onDestinationSelected: tabsRouter.setActiveIndex,
+                      onDestinationSelected: (index) {
+                        tabsRouter.setActiveIndex(index);
+                        _updateWindowTitle(index);
+                      },
                       labelType: NavigationRailLabelType.all,
                       destinations: const [
                         NavigationRailDestination(
@@ -115,5 +121,16 @@ class MainLayoutPage extends ConsumerWidget {
         );
       },
     );
+  }
+
+  void _updateWindowTitle(int index) {
+    final titles = [
+      'Projets - TaskFlow',
+      "Aujourd'hui - TaskFlow",
+      'Cette semaine - TaskFlow',
+      'Parametres - TaskFlow',
+    ];
+
+    windowManager.setTitle(titles[index]);
   }
 }

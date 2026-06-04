@@ -4,10 +4,26 @@ import 'package:task_manager_app/application/providers/theme_provider.dart';
 import 'package:task_manager_app/presentation/router/app_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager_app/application/providers/shared_preferences_provider.dart';
+import 'package:window_manager/window_manager.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await windowManager.ensureInitialized();
+
   final sharedPreferences = await SharedPreferences.getInstance();
+
+  const windowOptions = WindowOptions(
+    size: Size(1000, 700),
+    minimumSize: Size(800, 600),
+    center: true,
+    title: 'TaskFlow',
+  );
+
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
 
   runApp(
     ProviderScope(
@@ -18,6 +34,7 @@ void main() async {
     ),
   );
 }
+
 final appRouter = AppRouter();
 
 class MyApp extends ConsumerWidget {
