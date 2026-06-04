@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager_app/application/providers/accent_color_provider.dart';
 import 'package:task_manager_app/application/providers/theme_provider.dart';
+import 'package:task_manager_app/core/theme/app_theme.dart';
 import 'package:task_manager_app/presentation/router/app_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task_manager_app/application/providers/shared_preferences_provider.dart';
@@ -49,12 +50,8 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       themeMode: themeMode,
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: accentColor),
-      darkTheme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: accentColor,
-        brightness: Brightness.dark,
-      ),
+      theme: AppTheme.light(accentColor),
+      darkTheme: AppTheme.dark(accentColor),
       routerConfig: appRouter.config(),
     );
   }
