@@ -11,13 +11,3 @@ final projectRepositoryProvider = Provider<ProjectRepository>((ref) {
 final taskRepositoryProvider = Provider<TaskRepository>((ref) {
   return TaskRepositoryMemory();
 });
-
-final projectsProvider = FutureProvider((ref) async {
-  final repository = ref.watch(projectRepositoryProvider);
-  return repository.getProjects();
-});
-
-final tasksProvider = FutureProvider((ref) async {
-  final repository = ref.watch(taskRepositoryProvider);
-  return repository.getTasks();
-});

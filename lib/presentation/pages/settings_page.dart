@@ -21,6 +21,27 @@ class SettingsPage extends ConsumerWidget {
             ref.read(themeProvider.notifier).toggleTheme();
           },
         ),
+        const SizedBox(height: 24),
+        const Text(
+          'Raccourcis clavier',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 12),
+        const ListTile(
+          leading: Icon(Icons.keyboard),
+          title: Text('Ctrl + N'),
+          subtitle: Text('Nouvelle tache'),
+        ),
+        const ListTile(
+          leading: Icon(Icons.keyboard),
+          title: Text('Ctrl + F'),
+          subtitle: Text('Ouvrir / fermer la recherche'),
+        ),
+        const ListTile(
+          leading: Icon(Icons.keyboard),
+          title: Text('Ctrl + D'),
+          subtitle: Text('Basculer le theme clair / sombre'),
+        ),
       ],
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager_app/application/providers/project_notifier.dart';
 import 'package:task_manager_app/application/providers/task_notifier.dart';
 import 'package:task_manager_app/domain/entities/task.dart';
+import 'package:task_manager_app/presentation/widgets/task_form_dialog.dart';
 
 class TaskCard extends ConsumerWidget {
   final Task task;
@@ -65,6 +66,10 @@ class TaskCard extends ConsumerWidget {
                   labelStyle: TextStyle(color: task.status.textColor),
                 ),
                 const SizedBox(height: 24),
+                IconButton(
+                  onPressed: () => showTaskFormDialog(context, ref, task: task),
+                  icon: const Icon(Icons.edit_outlined),
+                ),
                 IconButton(
                   onPressed: () => _confirmDelete(context, ref),
                   icon: const Icon(Icons.delete_outline),

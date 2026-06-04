@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager_app/application/providers/search_provider.dart';
+import 'package:task_manager_app/application/providers/search_visibility_provider.dart';
 import 'package:task_manager_app/application/providers/task_filter_providers.dart';
 import 'package:task_manager_app/presentation/widgets/task_form_dialog.dart';
 import 'package:task_manager_app/presentation/widgets/task_list_view.dart';
@@ -13,6 +14,7 @@ class ProjectPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tasksAsync = ref.watch(searchedTasksProvider);
+    final searchVisible = ref.watch(searchVisibleProvider);
 
     return Scaffold(
       body: tasksAsync.when(
@@ -20,19 +22,20 @@ class ProjectPage extends ConsumerWidget {
         error: (error, stackTrace) => Center(child: Text('Error: $error')),
         data: (tasks) => Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: TextField(
-                decoration: const InputDecoration(
-                  labelText: 'Rechercher une tache',
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(),
+            if (searchVisible)
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    labelText: 'Rechercher une tache',
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(),
+                  ),
+                  onChanged: (value) {
+                    ref.read(searchTermProvider.notifier).state = value;
+                  },
                 ),
-                onChanged: (value) {
-                  ref.read(searchTermProvider.notifier).state = value;
-                },
               ),
-            ),
             Expanded(
               child: TaskListView(
                 tasks: tasks,
@@ -43,7 +46,7 @@ class ProjectPage extends ConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => showCreateTaskDialog(context, ref),
+        onPressed: () => showTaskFormDialog(context, ref),
         child: const Icon(Icons.add),
       ),
     );
