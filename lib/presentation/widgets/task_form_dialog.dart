@@ -16,6 +16,11 @@ Future<void> showTaskFormDialog(
     text: task?.description ?? '',
   );
   final projects = await ref.read(projectNotifierProvider.future);
+  final projectItems = <String, String>{};
+
+  for (final project in projects) {
+    projectItems[project.id] = project.name;
+  }
 
   if (!context.mounted) {
     return;
@@ -25,6 +30,11 @@ Future<void> showTaskFormDialog(
   var selectedStatus = task?.status ?? TaskStatus.afaire;
   String? selectedProjectId = task?.projectId;
   DateTime? selectedDueDate = task?.dueDate;
+
+  if (selectedProjectId != null &&
+      !projectItems.containsKey(selectedProjectId)) {
+    selectedProjectId = null;
+  }
 
   final savedTask = await showDialog<Task>(
     context: context,
@@ -96,10 +106,10 @@ Future<void> showTaskFormDialog(
                           value: null,
                           child: Text('Aucun projet'),
                         ),
-                        ...projects.map((project) {
+                        ...projectItems.entries.map((project) {
                           return DropdownMenuItem<String?>(
-                            value: project.id,
-                            child: Text(project.name),
+                            value: project.key,
+                            child: Text(project.value),
                           );
                         }),
                       ],

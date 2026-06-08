@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:task_manager_app/application/providers/project_notifier.dart';
+import 'package:task_manager_app/application/providers/selected_project_provider.dart';
 import 'package:task_manager_app/domain/entities/project.dart';
 import 'package:task_manager_app/presentation/widgets/project_form_dialog.dart';
 
@@ -10,6 +11,7 @@ class ProjectSidebar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final projectsAsync = ref.watch(projectNotifierProvider);
+    final selectedProjectId = ref.watch(selectedProjectIdProvider);
     return SizedBox(
       width: 250,
       child: projectsAsync.when(
@@ -42,31 +44,54 @@ class ProjectSidebar extends ConsumerWidget {
               ),
 
               const Divider(),
-              ...projects.map(
-                (project) => ListTile(
-                  leading: CircleAvatar(
-                    radius: 5,
-                    backgroundColor: Color(project.colorValue),
-                  ),
-                  title: Text(project.name),
-                  onTap: () {},
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        visualDensity: VisualDensity.compact,
-                        icon: const Icon(Icons.edit_outlined),
-                        onPressed: () {
-                          showProjectFormDialog(context, ref, project: project);
+              ListTile(
+                selected: selectedProjectId == null,
+                leading: const Icon(Icons.list),
+                title: const Text('Toutes les taches'),
+                onTap: () {
+                  ref.read(selectedProjectIdProvider.notifier).state = null;
+                },
+              ),
+              Expanded(
+                child: ListView(
+                  children: [
+                    ...projects.map(
+                      (project) => ListTile(
+                        selected: selectedProjectId == project.id,
+                        leading: CircleAvatar(
+                          radius: 5,
+                          backgroundColor: Color(project.colorValue),
+                        ),
+                        title: Text(project.name),
+                        onTap: () {
+                          ref.read(selectedProjectIdProvider.notifier).state =
+                              project.id;
                         },
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              visualDensity: VisualDensity.compact,
+                              icon: const Icon(Icons.edit_outlined),
+                              onPressed: () {
+                                showProjectFormDialog(
+                                  context,
+                                  ref,
+                                  project: project,
+                                );
+                              },
+                            ),
+                            IconButton(
+                              visualDensity: VisualDensity.compact,
+                              icon: const Icon(Icons.delete_outline),
+                              onPressed: () =>
+                                  _confirmDelete(context, ref, project),
+                            ),
+                          ],
+                        ),
                       ),
-                      IconButton(
-                        visualDensity: VisualDensity.compact,
-                        icon: const Icon(Icons.delete_outline),
-                        onPressed: () => _confirmDelete(context, ref, project),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -106,5 +131,9 @@ class ProjectSidebar extends ConsumerWidget {
     }
 
     await ref.read(projectNotifierProvider.notifier).deleteProject(project.id);
+
+    if (ref.read(selectedProjectIdProvider) == project.id) {
+      ref.read(selectedProjectIdProvider.notifier).state = null;
+    }
   }
 }
