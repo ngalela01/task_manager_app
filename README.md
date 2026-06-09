@@ -196,14 +196,3 @@ Si Flutter demande le mode developpeur Windows, il faut l'activer avec :
 ```powershell
 start ms-settings:developers
 ```
-
-## Verification avant rendu
-
-- L'application se lance.
-- Les taches et projets persistent apres redemarrage.
-- Le theme et la couleur d'accent persistent.
-- Les raccourcis clavier fonctionnent.
-- La fenetre respecte la taille minimale.
-- `flutter analyze` passe.
-- `flutter test` passe.
-- Le workflow GitHub Actions passe au vert.
